@@ -10,9 +10,27 @@ buildscript {
 	}
 }
 
+plugins {
+    id 'jacoco'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+
+
+jacoco {
+    toolVersion = "0.8.5"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
 
 group = 'io.datawire.labs'
 version = '0.0.1-SNAPSHOT'
