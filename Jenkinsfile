@@ -33,7 +33,8 @@ pipeline {
                         STATUS = 0
                         STATUS = sh(returnStatus: true, script: 'gradle build')
                         if (STATUS == 0) {
-                            echo ""
+                            echo "Generating coverage report"
+                            STATUS = sh(returnStatus: true, script: 'gradle jacocoTestReport')
                         }
                         else {
                             echo ""
