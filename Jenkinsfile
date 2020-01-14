@@ -46,6 +46,17 @@ pipeline {
                 always{
                     dir("$env.WORKSPACE"){
                     junit 'build/test-results/test/*.xml'
+                     step([$class: 'CoberturaPublisher',
+                             autoUpdateHealth: false,
+                             autoUpdateStability: false,
+                             coberturaReportFile: 'build/customJacocoReportDir/test/*.xml',
+                             failNoReports: false,
+                             failUnhealthy: false,
+                             failUnstable: false,
+                             maxNumberOfBuilds: 10,
+                             onlyStable: false,
+                             sourceEncoding: 'ASCII',
+                             zoomCoverageChart: false])
                     cleanWs()
                     }
                 }
