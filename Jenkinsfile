@@ -31,13 +31,13 @@ pipeline {
                 script{
                     dir("$env.WORKSPACE"){
                         STATUS = 0
-                        STATUS = sh(returnStatus: true, script: 'gradle build')
+                        STATUS = sh(returnStatus: true, script: 'gradle clean build')
                         if (STATUS == 0) {
                             echo "Generating coverage report"
                             STATUS = sh(returnStatus: true, script: 'gradle jacocoTestReport')
                         }
                         else {
-                            echo ""
+                            echo "Compilation or Junit for the code has failed. Please check your build for more details"
                             sh 'exit 1'
                         }
                     }
